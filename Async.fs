@@ -7,6 +7,6 @@ open System
 /// </summary>
 /// <param name="sequence">a sequence contianing async tasks to be run in parallel</param>
 let chunkAsync sequence =
-    Seq.collect Async.RunSynchronously
-    << Seq.map Async.Parallel
+    let runParallel = Async.RunSynchronously << Async.Parallel
+    Seq.collect runParallel
     <| Seq.chunkBySize Environment.ProcessorCount sequence
